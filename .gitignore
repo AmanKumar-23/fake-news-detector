@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+models/
+reports/
+data/news.csv
+data/Fake.csv
+data/True.csv
+.ipynb_checkpoints/
+.venv/
+.claude/settings.local.json

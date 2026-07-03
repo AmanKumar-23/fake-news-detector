@@ -1,0 +1,38 @@
+# Core ML
+scikit-learn>=1.3
+pandas>=2.0
+numpy>=1.24
+joblib>=1.3
+
+# Web app
+streamlit>=1.30
+
+# Summaries (optional at runtime — offline fallback works without a key)
+anthropic>=0.39
+
+# URL fetching (CA bundle for HTTPS on macOS)
+certifi>=2023.0
+
+# Evaluation plots
+matplotlib>=3.7
+
+# Tests (dev)
+pytest>=7.0
+
+# --- Optional: DistilBERT transformer backend ---
+# Install these only if you want FAKE_NEWS_BACKEND=distilbert. Heavy (~2 GB).
+#   pip install torch transformers
+# torch>=2.0
+# transformers>=4.30
+
+# --- Optional: OCR for screenshots/images ---
+# Tesseract engine (recommended): `brew install tesseract` then:
+# pytesseract>=0.3.10
+# Pure-Python alternative (heavier): easyocr
+
+# --- Optional: local AI fact-check (Ollama) ---
+# No Python package needed (stdlib HTTP). Install Ollama from https://ollama.com,
+# then: ollama pull llama3.2
+
+# --- Optional: legacy live fact-check ---
+# No extra package needed (stdlib HTTP). Just set GOOGLE_FACTCHECK_API_KEY.

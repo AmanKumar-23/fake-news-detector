@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 data/make_dataset.py)",
+      "Bash(python3 src/train.py)",
+      "Bash(python3 src/predict.py \"SHOCKING!! You won't BELIEVE the secret they are HIDING about the vaccine! Share before it gets DELETED!!!\")",
+      "Bash(python3 src/predict.py --url=https://www.reuters.com/world/india \"According to a report published by the ministry on Tuesday, officials reviewed the water supply data over six months before outlining the next steps.\")",
+      "Bash(python3 src/predict.py --url=https://worldnewsdailyreport.com/story \"According to a report published by the ministry, officials reviewed the data before outlining next steps.\")",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}
