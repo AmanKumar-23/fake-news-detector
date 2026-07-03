@@ -19,6 +19,20 @@ Claude-written summary (with a fully offline fallback).
 
 ---
 
+## 📸 Screenshots
+
+**Analyzing a fake article** — verdict, credibility gauge, red-flag signals, and the free
+local-LLM AI fact-check, all in one view:
+
+![Analysis result for a fake article](docs/02_fake_result.png)
+
+**The app** — four input modes (text · URL · image/screenshot · batch), with live model and
+backend status in the sidebar:
+
+![Fake News Detector home screen](docs/01_home.png)
+
+---
+
 ## Highlights
 
 - **Four input modes** — paste text, fetch a live **URL**, read an **image/screenshot**
@@ -226,6 +240,15 @@ Model-dependent tests auto-skip if you haven't trained yet, so the logic tests a
 
 - This is a **decision-support tool, not a definitive fact-checker** — always pair it with
   cross-checking against trusted sources.
-- Natural next steps: a transformer classifier (e.g. DistilBERT) behind the same interface,
-  a larger curated source-reputation list, claim-level fact extraction, and multilingual
-  support.
+- Natural next steps: a larger curated source-reputation list, claim-level evidence
+  retrieval, attention-based explanations for the transformer, and multilingual support.
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE) — free to use, modify, and share.
+
+## Author
+
+**Aman Kumar** · [@AmanKumar-23](https://github.com/AmanKumar-23)
