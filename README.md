@@ -201,28 +201,48 @@ Pick a different model with `OLLAMA_MODEL=mistral`.
   - **Brier score** and **log loss** — probability quality
   - Plots: **confusion matrix**, **ROC curve**, **calibration curve**
 
-On the bundled synthetic dataset this scores ≈ 0.94 CV accuracy and ROC-AUC ≈ 0.97 —
-realistic numbers, because the synthetic data deliberately includes borderline cases and
-a little label noise (a fake 100% would be a red flag, not a feature).
+### Results
+
+Trained and evaluated on the **real [Fake and Real News dataset](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset)** (44,898 articles):
+
+| Metric | Score |
+|---|---|
+| 5-fold CV accuracy | 99.88% ± 0.03% |
+| Held-out accuracy | 99.91% |
+| ROC-AUC | 1.000 |
+| Brier score | 0.0012 |
+
+> **Why so high? An honest caveat (important for interpretation).** This dataset has a
+> known *source artifact*: every "real" article comes from **Reuters** (they begin
+> `WASHINGTON (Reuters) -`), while the fake ones come from other sites with different
+> formatting. A classifier can therefore reach ~99.9% partly by learning *"is this
+> Reuters-formatted?"* rather than *"is this true?"* — so the score reflects this dataset,
+> not guaranteed generalization to unseen sources. The rule-based signals and
+> source-reputation layer exist precisely to add robustness beyond the model's stylistic
+> shortcuts. A stronger test is cross-source evaluation (train on one set of outlets, test
+> on another) — a natural extension.
+
+The bundled **synthetic** dataset (used automatically if the Kaggle files aren't present)
+scores ≈ 0.94 CV accuracy — deliberately imperfect, with borderline cases and label noise,
+so the pipeline and calibration curve are meaningful without the real data.
 
 ---
 
-## Using the real dataset (recommended for your report)
+## Reproducing the real-data training
 
-The bundled dataset is **synthetic** — it demonstrates the full pipeline and trains in
-seconds, but for defensible, publishable metrics use real data:
+The dataset isn't committed (it's large). Fetch it and retrain in three steps:
 
-1. Download the **[Fake and Real News dataset](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset)** from Kaggle.
-2. Put `Fake.csv` and `True.csv` into the `data/` folder.
-3. Re-run:
-   ```bash
-   python data/make_dataset.py   # auto-detects and uses the real files
-   python src/train.py
-   ```
+```bash
+# Easiest — kagglehub downloads the dataset to a local cache (no API token needed):
+pip install kagglehub
+python -c "import kagglehub, shutil, glob, os; p=kagglehub.dataset_download('clmentbisaillon/fake-and-real-news-dataset'); [shutil.copy(f,'data/') for f in glob.glob(os.path.join(p,'*.csv'))]"
 
-> The tiny synthetic vocabulary means a *meta-article about misinformation* can trip the
-> demo model (it's full of words like "hoax/conspiracy"). The real dataset fixes this;
-> the mechanics are identical.
+python data/make_dataset.py   # auto-detects the real Fake.csv / True.csv
+python src/train.py           # trains + evaluates on ~44k real articles
+```
+
+Alternatively, download `Fake.csv` + `True.csv` manually from the Kaggle page and drop them
+into `data/`.
 
 ---
 
